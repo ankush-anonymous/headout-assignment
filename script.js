@@ -33,42 +33,78 @@ starInputs.forEach((input) => {
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  // Collect form data
-  const formData = {
-    productId: form.productId.value,
-    rating: form.rating.value,
-    review: form.review.value,
-    npsCategory: determineNPSCategory(form.rating.value), // Determine category
-  };
+  let isValid = true;
 
-  feedbackDiv.classList.remove("hidden");
-  feedbackDiv.textContent = "Submitting your review...";
-
-  try {
-    // Send data to the proxy server
-    const response = await fetch(
-      "https://headout-assignment-backend.onrender.com/proxy", // Proxy endpoint
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      }
-    );
-
-    const result = await response.json();
-
-    // Handle success or failure
-    if (result.status === "success") {
-      feedbackDiv.textContent = result.message;
-    } else {
-      feedbackDiv.textContent = "Failed to record review: " + result.message;
-    }
-  } catch (error) {
-    feedbackDiv.textContent = "An error occurred.";
-    console.error("Error:", error);
+  // Check rating
+  const rating = document.querySelector('input[name="rating"]:checked');
+  const ratingError = document.getElementById("ratingError");
+  if (!rating) {
+    ratingError.textContent = "Please select a rating";
+    isValid = false;
+  } else {
+    ratingError.textContent = ""; // Clear error message if rating is selected
   }
+
+  // Check product selection
+  const product = document.getElementById("productId").value;
+  if (!product) {
+    alert("Please select a product");
+    isValid = false;
+  }
+
+  // Check review text
+  const review = document.getElementById("review").value.trim();
+  if (!review) {
+    alert("Please write your review");
+    isValid = false;
+  }
+
+  // Only submit if all validations pass
+  if (isValid) {
+    // Collect form data
+    const formData = {
+      productId: form.productId.value,
+      rating: form.rating.value,
+      review: form.review.value,
+      npsCategory: determineNPSCategory(form.rating.value), // Determine category
+    };
+
+    feedbackDiv.classList.remove("hidden");
+    feedbackDiv.textContent = "Submitting your review...";
+
+    try {
+      // Send data to the proxy server
+      const response = await fetch(
+        "https://headout-assignment-backend.onrender.com/proxy", // Proxy endpoint
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      const result = await response.json();
+
+      // Handle success or failure
+      if (result.status === "success") {
+        feedbackDiv.textContent = result.message;
+      } else {
+        feedbackDiv.textContent = "Failed to record review: " + result.message;
+      }
+    } catch (error) {
+      feedbackDiv.textContent = "An error occurred.";
+      console.error("Error:", error);
+    }
+  }
+});
+
+// Optional: Clear error message when a star is selected
+document.querySelectorAll('input[name="rating"]').forEach((input) => {
+  input.addEventListener("change", function () {
+    document.getElementById("ratingError").textContent = "";
+  });
 });
 
 // Helper function to determine NPS category
