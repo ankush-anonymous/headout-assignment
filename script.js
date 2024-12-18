@@ -47,8 +47,7 @@ form.addEventListener("submit", async (e) => {
   try {
     // Send data to the proxy server
     const response = await fetch(
-      "https://script.google.com/macros/s/AKfycbzzq4AlfUonWPyG3cR_I5RaazicD4bVB_uxPHx83t-lX0Z4vdK8d4jJt1QSu4qiaQ/exec", // Proxy endpoint
-      // "https://headout-assignment-backend.onrender.com/proxy", // Proxy endpoint
+      "https://headout-assignment-backend.onrender.com/proxy", // Proxy endpoint
       {
         method: "POST",
         headers: {
