@@ -4,6 +4,12 @@
 
 A simple and intuitive product review system that allows users to submit product reviews with ratings (NPS - Net Promoter Score). The application collects user feedback, including product selection, rating (1-10 stars), and review text. All submissions are sent to a proxy server for processing.
 
+## Navigation
+
+- **/** (Index): Contains a table with links redirecting to other sections of the application
+- **/feedback**: Features the main feedback form where users can submit product reviews
+- **/rawdata**: Provides an API request interface to view and analyze submitted feedback data
+
 ## Features
 
 - Star rating system (1-10)
@@ -53,5 +59,9 @@ npm start
 The application communicates with a proxy server at:
 
 ```
-https://headout-assignment-backend.onrender.com/proxy
+- Backend_URL: https://headout-assignment-backend.onrender.com/proxy
+- Frontend_URL: https://headout-assignment-frontend.onrender.com/ [refer to the routes above]
+- `FEEDBACK_SHEET_URL`: "https://docs.google.com/spreadsheets/d/19EFGH-0wkPykiPWRvn9hNUDvTGuYf9iEBFyeoBn3xiQ/edit?usp=sharing"
+- `RAWDATA_SHEET_URL`: "https://docs.google.com/spreadsheets/d/18KciqH7pLy0zYaQwgs1QBnpFYZyidlDhR6sE5nNQq6U/edit?usp=sharing"
+
 ```
