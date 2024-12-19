@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API Request Form</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        padding: 20px;
+      }
+      form {
+        max-width: 600px;
+        margin: auto;
+        border: 1px solid #ccc;
+        padding: 20px;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 8px;
+        margin: 5px 0;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      button {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>API Request Form</h2>
+    <form id="apiRequestForm">
+      <div class="form-group">
+        <label for="integrationType">Type of the Integration</label>
+        <select id="integrationType" name="integrationType" required>
+          <option value="New Integration">New Integration</option>
+          <option value="Existing Integration">Existing Integration</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="apiName">Name of the API</label>
+        <input
+          type="text"
+          id="apiName"
+          name="apiName"
+          placeholder="Enter API name"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="bookingFlow">Booking Flow</label>
+        <select id="bookingFlow" name="bookingFlow" required>
+          <option value="Non-seatmap">Non-seatmap</option>
+          <option value="Seatmap">Seatmap</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="monthlyGBV">Actual/Estimated Monthly GBV</label>
+        <input
+          type="number"
+          id="monthlyGBV"
+          name="monthlyGBV"
+          placeholder="Enter monthly GBV"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="businessPotential"
+          >Any other elements to take into account to assess the business
+          potential of this API</label
+        >
+        <textarea
+          id="businessPotential"
+          name="businessPotential"
+          placeholder="Enter details"
+          rows="3"
+        >
+N/A</textarea
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="requester">Requester</label>
+        <input
+          type="email"
+          id="requester"
+          name="requester"
+          placeholder="Enter your email"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="date">Date</label>
+        <input type="date" id="date" name="date" required />
+      </div>
+
+      <div class="form-group">
+        <label for="comments">Additional Comments</label>
+        <textarea
+          id="comments"
+          name="comments"
+          placeholder="Enter comments"
+          rows="3"
+        ></textarea>
+      </div>
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <script>
+      document
+        .getElementById("apiRequestForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent form from reloading the page
+
+          // Check if any required field is empty
+          const fields = [
+            "integrationType",
+            "apiName",
+            "bookingFlow",
+            "monthlyGBV",
+            "businessPotential",
+            "requester",
+            "date",
+          ];
+          for (let field of fields) {
+            const input = document.getElementById(field);
+            if (!input.value.trim()) {
+              alert(`${input.previousElementSibling.innerText} is required.`);
+              return;
+            }
+          }
+
+          const formatter = new Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency: "USD",
+            minimumFractionDigits: 2,
+          });
+
+          // Gather form data
+          const formData = {
+            integrationType: document.getElementById("integrationType").value,
+            apiName: document.getElementById("apiName").value,
+            bookingFlow: document.getElementById("bookingFlow").value,
+            monthlyGBV: formatter.format(
+              document.getElementById("monthlyGBV").value
+            ),
+            businessPotential:
+              document.getElementById("businessPotential").value,
+            requester: document.getElementById("requester").value,
+            date: document.getElementById("date").value,
+            comments: document.getElementById("comments").value,
+          };
+
+          // Send data to the backend API
+          fetch(
+            "https://headout-assignment-backend.onrender.com/proxy/rawdata",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(formData),
+            }
+          )
+            .then((response) => response.json())
+            .then((data) => {
+              alert("Form submitted successfully!");
+              console.log("Response Data:", data);
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              alert(
+                "There was an error submitting the form. Please try again."
+              );
+            });
+        });
+    </script>
+  </body>
+</html>

@@ -75,7 +75,7 @@ form.addEventListener("submit", async (e) => {
     try {
       // Send data to the proxy server
       const response = await fetch(
-        "https://headout-assignment-backend.onrender.com/proxy", // Proxy endpoint
+        "https://headout-assignment-backend.onrender.com/proxy/feedback", // Proxy endpoint
         {
           method: "POST",
           headers: {
