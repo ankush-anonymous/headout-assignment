@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Navigation</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="logo">MyApp</div>
+      <div class="nav-links">
+        <a href="#" id="feedbackTab">Feedback</a>
+        <a href="#" id="apiReqFormTab">API Req Form</a>
+      </div>
+    </nav>
+
+    <div id="content">
+      <!-- Dynamic content will load here -->
+    </div>
+
+    <script>
+      // Tab navigation logic
+      const feedbackTab = document.getElementById("feedbackTab");
+      const apiReqFormTab = document.getElementById("apiReqFormTab");
+      const content = document.getElementById("content");
+
+      feedbackTab.addEventListener("click", () => {
+        fetch("feedback.html")
+          .then((response) => response.text())
+          .then((data) => {
+            content.innerHTML = data;
+          });
+      });
+
+      apiReqFormTab.addEventListener("click", () => {
+        fetch("rawdata.html")
+          .then((response) => response.text())
+          .then((data) => {
+            content.innerHTML = data;
+          });
+      });
+
+      // Load Feedback tab by default
+      feedbackTab.click();
+    </script>
+  </body>
+</html>

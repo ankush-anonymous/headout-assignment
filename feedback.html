@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Headout Customer Review Form</title>
+    <link rel="stylesheet" href="feedbackStyle.css" />
+  </head>
+  <body>
+    <div class="form-container">
+      <h2>Customer Review Form</h2>
+      <form id="reviewForm">
+        <div class="form-group">
+          <label>Rating</label>
+          <div class="star-rating">
+            <input type="radio" id="star10" name="rating" value="10" required />
+            <label for="star10">★</label>
+            <input type="radio" id="star9" name="rating" value="9" />
+            <label for="star9">★</label>
+            <input type="radio" id="star8" name="rating" value="8" />
+            <label for="star8">★</label>
+            <input type="radio" id="star7" name="rating" value="7" />
+            <label for="star7">★</label>
+            <input type="radio" id="star6" name="rating" value="6" />
+            <label for="star6">★</label>
+            <input type="radio" id="star5" name="rating" value="5" />
+            <label for="star5">★</label>
+            <input type="radio" id="star4" name="rating" value="4" />
+            <label for="star4">★</label>
+            <input type="radio" id="star3" name="rating" value="3" />
+            <label for="star3">★</label>
+            <input type="radio" id="star2" name="rating" value="2" />
+            <label for="star2">★</label>
+            <input type="radio" id="star1" name="rating" value="1" />
+            <label for="star1">★</label>
+          </div>
+          <div id="ratingError" class="error-message" style="color: red"></div>
+          <div class="rating-group hidden">
+            <span id="detractor" class="rating-detractor">Detractor</span>
+            <span id="passive" class="rating-passive">Passive</span>
+            <span id="promoter" class="rating-promoter">Promoter</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="productId">Product ID</label>
+          <select id="productId" name="productId" required>
+            <option value="">--Select Product--</option>
+            <option value="P100">P100</option>
+            <option value="P101">P101</option>
+            <option value="P102">P102</option>
+            <option value="P103">P103</option>
+            <option value="P104">P104</option>
+            <option value="P105">P105</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="review">Review</label>
+          <textarea
+            id="review"
+            name="review"
+            placeholder="Share your experience..."
+            required
+          ></textarea>
+        </div>
+        <button type="submit" class="btn-submit">Submit Feedback</button>
+        <div id="formFeedback" class="form-feedback hidden">
+          Submitting your review...
+        </div>
+      </form>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
