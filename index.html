@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dynamic Navbar</title>
+    <link rel="icon" type="image/svg+xml" href="./svg.svg" sizes="24x24" />
+    <title>Headout Assignment</title>
     <style>
       body {
         margin: 0;
@@ -28,7 +29,7 @@
       }
 
       .navbar-logo {
-        font-size: 20px;
+        font-size: 12px;
         font-weight: bold;
       }
 
@@ -43,6 +44,7 @@
         padding: 8px 12px;
         border-radius: 4px;
         transition: background-color 0.3s ease;
+        padding-right: 30px;
       }
 
       .navbar-tabs a:hover,
@@ -61,7 +63,15 @@
   <body>
     <!-- Navbar -->
     <div class="navbar">
-      <div class="navbar-logo">Logo</div>
+      <div style="display: flex; align-items: center">
+        <img
+          src="./svg.svg"
+          alt="Logo"
+          class="navbar-logo"
+          style="margin-right: 10px; width: 24px; height: 24px"
+        />
+        <div class="navbar-logo" style="font-size: 24px">Headout</div>
+      </div>
       <div class="navbar-tabs">
         <a href="#" id="feedbackTab" class="active">Feedback</a>
         <a href="#" id="apiReqTab">API Request Form</a>
