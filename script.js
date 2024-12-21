@@ -90,6 +90,12 @@ form.addEventListener("submit", async (e) => {
       // Handle success or failure
       if (result.status === "success") {
         feedbackDiv.textContent = result.message;
+        // Clear the form
+        form.reset();
+        // Remove active class from all NPS tags
+        detractorTag.classList.remove("active");
+        passiveTag.classList.remove("active");
+        promoterTag.classList.remove("active");
       } else {
         feedbackDiv.textContent = "Failed to record review: " + result.message;
       }

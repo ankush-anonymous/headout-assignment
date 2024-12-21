@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <div class="nav-button">
+      <a href="rawdata.html" class="raw-data-btn">API Request Form</a>
+    </div>
     <div class="form-container">
       <h2>Customer Review Form</h2>
       <form id="reviewForm">
@@ -64,7 +67,11 @@
         </div>
         <button type="submit" class="btn-submit">Submit Feedback</button>
         <div id="formFeedback" class="form-feedback hidden">
-          Submitting your review...
+          <div class="loader"></div>
+          <span>Submitting your review...</span>
+        </div>
+        <div id="toast" class="toast hidden">
+          <span id="toastMessage"></span>
         </div>
       </form>
     </div>
