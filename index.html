@@ -3,8 +3,62 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Headout Customer Review Form</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" type="image/svg+xml" href="./svg.svg" sizes="24x24" />
+    <title>Headout Assignment</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+      }
+
+      /* Navbar styles */
+      .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #007bff;
+        padding: 10px 20px;
+        color: white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+      }
+
+      .navbar-logo {
+        font-size: 12px;
+        font-weight: bold;
+      }
+
+      .navbar-tabs {
+        display: flex;
+        gap: 15px;
+      }
+
+      .navbar-tabs a {
+        color: white;
+        text-decoration: none;
+        padding: 8px 12px;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+        padding-right: 30px;
+      }
+
+      .navbar-tabs a:hover,
+      .navbar-tabs a.active {
+        background-color: #0056b3;
+      }
+
+      /* Content area styles */
+      .content-container {
+        padding: 80px 20px; /* Adjust padding to leave space for the navbar */
+        margin: 0 auto;
+        max-width: 800px;
+      }
+    </style>
   </head>
   <body>
     <div class="nav-button">
@@ -80,6 +134,39 @@
         </div>
       </form>
     </div>
-    <script src="script.js"></script>
+
+    <script>
+      function loadContent(filePath, tabId) {
+        const contentContainer = document.getElementById("contentContainer");
+        const tabs = document.querySelectorAll(".navbar-tabs a");
+
+        tabs.forEach((tab) => tab.classList.remove("active"));
+        document.getElementById(tabId).classList.add("active");
+
+        fetch(filePath)
+          .then((response) => {
+            if (!response.ok) throw new Error("Network response was not ok");
+            return response.text();
+          })
+          .then((html) => (contentContainer.innerHTML = html))
+          .catch((error) => {
+            contentContainer.innerHTML = `<p>Error loading content: ${error.message}</p>`;
+          });
+      }
+
+      document.getElementById("feedbackTab").addEventListener("click", (e) => {
+        e.preventDefault();
+        loadContent("feedback.html", "feedbackTab");
+      });
+
+      document.getElementById("apiReqTab").addEventListener("click", (e) => {
+        e.preventDefault();
+        loadContent("rawdata.html", "apiReqTab");
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        loadContent("feedback.html", "feedbackTab");
+      });
+    </script>
   </body>
 </html>
